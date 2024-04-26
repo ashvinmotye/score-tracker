@@ -21,7 +21,7 @@ const TEAMS = {
     },
     KKR: {
         label: 'Kolkata Knight Riders',
-        borderColor: '#28204b'
+        borderColor: '#3a225d'
     },
     LSG: {
         label: 'Lucknow Super Giants',
