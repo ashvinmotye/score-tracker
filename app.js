@@ -76,8 +76,16 @@ const drawChart = (app_data) => {
 
 	const _score1 = `${team1Score}/${lostW1}`;
 	const _score2 = `${team2Score}/${lostW2}`;
+	const isMatchOver = scoreTeam2.length == 20 || team2Score > team1Score;
 	const currentScore1 = scoreTeam1.length == 20 ? `S: ${_score1}` : `S: ${_score1}, PS: ${projScore1}`;
-	const currentScore2 = scoreTeam2.length == 20 ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`;
+	const currentScore2 =  isMatchOver ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`;
+
+	if(isMatchOver) {
+		const winnerEl = document.querySelector('.winner');
+		const winnerKey = team2Score > team1Score ? app_data[1].teams : app_data[0].teams;
+		winnerEl.textContent = `${winnerKey} wins!`;
+		winnerEl.setAttribute('style', `color: ${TEAMS[winnerKey].borderColor}`);
+	}
 	
 	const data = {
 		labels: labels,

@@ -8,6 +8,13 @@ canvas#myChart {
     height: 100vh !important;
 }
 
+.winner {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-family: sans-serif;;
+}
+
 @media screen and (max-width: 600px) {
     .container {
         width: 200vw;
