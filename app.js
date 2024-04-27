@@ -144,6 +144,9 @@ const drawChart = (app_data) => {
 		plugins: [pluginBackground],
 		options: {
 			plugins: {
+				tooltip: {
+					enabled: false
+				},
 				legend: {
 					display: true
 				},
@@ -162,6 +165,9 @@ const drawChart = (app_data) => {
 				customCanvasBackgroundColor: {
 					color: '#ffffff',
 				}
+			},
+			hover: {
+				mode: null, // Disable hovering interactions
 			},
 			scales: {
 				y: {
