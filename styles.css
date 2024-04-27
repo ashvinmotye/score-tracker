@@ -7,3 +7,9 @@
 canvas#myChart {
     height: 100vh !important;
 }
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: 200vw;
+    }
+}
