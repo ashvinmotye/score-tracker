@@ -45,6 +45,21 @@ const drawChart = (app_data) => {
 
 	const projScore1 = Math.round(crr1 * 20);
 	const projScore2 = Math.round(crr2 * 20);
+
+	const arrWickets1 = app_data.filter(el => el.wicket1).map(el => {
+		return {x: Number(el.over), y: 10, z: el.wicket1.length}
+	});
+	const lostW1 = arrWickets1.reduce((n, {z}) => n + z, 0);
+
+	const arrWickets2 = app_data.filter(el => el.wicket2).map(el => {
+		return {x: Number(el.over), y: 25, z: el.wicket2.length}
+	});
+	const lostW2 = arrWickets2.reduce((n, {z}) => n + z, 0);
+
+	const _score1 = `${scoreTeam1[scoreTeam1.length - 1]}/${lostW1}`;
+	const _score2 = `${scoreTeam2[scoreTeam2.length - 1]}/${lostW2}`;
+	const currentScore1 = scoreTeam1.length == 20 ? `S: ${_score1}` : `S: ${_score1}, PS: ${projScore1}`;
+	const currentScore2 = scoreTeam2.length == 20 ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`;
 	
 	const data = {
 		labels: labels,
@@ -62,9 +77,7 @@ const drawChart = (app_data) => {
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[0].teams],
 			label: `${app_data[0].teams} wickets`,
-			data: app_data.filter(el => el.wicket1).map(el => {
-				return {x: Number(el.over), y: 10, z: el.wicket1.length}
-			}),
+			data: arrWickets1,
 			showLine: false,
 			pointBorderWidth: 10,
 			datalabels: {
@@ -79,9 +92,7 @@ const drawChart = (app_data) => {
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[1].teams],
 			label: `${app_data[1].teams} wickets`,
-			data: app_data.filter(el => el.wicket2).map(el => {
-				return {x: Number(el.over), y: 25, z: el.wicket2.length}
-			}),
+			data: arrWickets2,
 			showLine: false,
 			pointBorderWidth: 10,
 			datalabels: {
@@ -109,15 +120,11 @@ const drawChart = (app_data) => {
 				},
 				subtitle: {
 					display: true,
-					text: `${app_data[0].teams} (RR: ${crr1}, PS: ${projScore1}) vs ${app_data[1].teams} (RR: ${crr2}, PS: ${projScore2})`
+					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (RR: ${crr2}, ${currentScore2})`
 				},
 				datalabels: {
 					align: 'top',
-					offset: 5,
-					// display: (context) => {
-					// 	console.log(typeof context.dataset.data[context.dataIndex]);
-					// 	return typeof context.dataset.data[context.dataIndex] != 'object';
-					// }
+					offset: 5
 				}
 			},
 			scales: {
