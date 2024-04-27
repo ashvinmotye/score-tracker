@@ -85,13 +85,16 @@ const drawChart = (app_data) => {
 			label: `${app_data[0].teams} wickets`,
 			data: arrWickets1,
 			showLine: false,
-			pointBorderWidth: 10,
+			pointBorderWidth: 16,
 			datalabels: {
 				formatter: (value) => {
-					return value.z;
+					return `${value.z}W`;
 				},
 				align: 'center',
-				color: '#ffffff'
+				color: '#ffffff',
+				font: {
+					size: 10
+				}
 			}
 		},
 		{
@@ -100,13 +103,16 @@ const drawChart = (app_data) => {
 			label: `${app_data[1].teams} wickets`,
 			data: arrWickets2,
 			showLine: false,
-			pointBorderWidth: 10,
+			pointBorderWidth: 16,
 			datalabels: {
 				formatter: (value) => {
-					return value.z;
+					return `${value.z}W`;
 				},
 				align: 'center',
-				color: '#ffffff'
+				color: '#ffffff',
+				font: {
+					size: 10
+				}
 			}
 		}]
 	};
