@@ -90,7 +90,8 @@ const drawChart = (app_data) => {
 						text: 'OVER'
 					}
 				}
-			}
+			},
+			maintainAspectRatio: false
 		}
 	});
 }
