@@ -37,7 +37,7 @@ const TEAMS = {
     },
     RR: {
         label: 'Rajasthan Royals',
-        borderColor: '#eb83b5'
+        borderColor: '#e50493'
     }
 }
 
