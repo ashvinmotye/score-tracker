@@ -34,6 +34,18 @@ const csvSplit = (row) => {
   return row.split(",").map((val) => val.substring(1, val.length - 1));
 }
 
+const pluginBackground = {
+	id: 'customCanvasBackgroundColor',
+	beforeDraw: (chart, args, options) => {
+	  const {ctx} = chart;
+	  ctx.save();
+	  ctx.globalCompositeOperation = 'destination-over';
+	  ctx.fillStyle = options.color || '#99ffff';
+	  ctx.fillRect(0, 0, chart.width, chart.height);
+	  ctx.restore();
+	}
+  };
+
 const drawChart = (app_data) => {
 	const chartEl = document.getElementById('myChart');
 	const labels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -121,6 +133,7 @@ const drawChart = (app_data) => {
 	new Chart(chartEl, {
 		type: 'line',
 		data: data,
+		plugins: [pluginBackground],
 		options: {
 			plugins: {
 				legend: {
@@ -137,6 +150,9 @@ const drawChart = (app_data) => {
 				datalabels: {
 					align: 'top',
 					offset: 5
+				},
+				customCanvasBackgroundColor: {
+					color: '#ffffff',
 				}
 			},
 			scales: {
