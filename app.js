@@ -57,6 +57,40 @@ const drawChart = (app_data) => {
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[1].teams],
 			data: scoreTeam2,
+		},
+		{
+			...CONFIG.DATASETS,
+			...TEAMS[app_data[0].teams],
+			label: `${app_data[0].teams} wickets`,
+			data: app_data.filter(el => el.wicket1).map(el => {
+				return {x: Number(el.over), y: 10, z: el.wicket1.length}
+			}),
+			showLine: false,
+			pointBorderWidth: 10,
+			datalabels: {
+				formatter: (value) => {
+					return value.z;
+				},
+				align: 'center',
+				color: '#ffffff'
+			}
+		},
+		{
+			...CONFIG.DATASETS,
+			...TEAMS[app_data[1].teams],
+			label: `${app_data[1].teams} wickets`,
+			data: app_data.filter(el => el.wicket2).map(el => {
+				return {x: Number(el.over), y: 25, z: el.wicket2.length}
+			}),
+			showLine: false,
+			pointBorderWidth: 10,
+			datalabels: {
+				formatter: (value) => {
+					return value.z;
+				},
+				align: 'center',
+				color: '#ffffff'
+			}
 		}]
 	};
 	
@@ -79,7 +113,11 @@ const drawChart = (app_data) => {
 				},
 				datalabels: {
 					align: 'top',
-					offset: 5
+					offset: 5,
+					// display: (context) => {
+					// 	console.log(typeof context.dataset.data[context.dataIndex]);
+					// 	return typeof context.dataset.data[context.dataIndex] != 'object';
+					// }
 				}
 			},
 			scales: {
