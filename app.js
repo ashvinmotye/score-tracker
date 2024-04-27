@@ -37,8 +37,14 @@ const csvSplit = (row) => {
 const drawChart = (app_data) => {
 	const chartEl = document.getElementById('myChart');
 	const labels = Array.from({ length: 20 }, (_, i) => i + 1);
-	const scoreTeam1 = app_data.filter(el => el.score1).map(el => el.score1);
+	const scoreTeam1 = app_data.filter(el => el.score1).map(el => Number(el.score1));
 	const scoreTeam2 =  app_data.filter(el => el.score2).map(el => el.score2);
+
+	const crr1 = scoreTeam1.length ? parseFloat(scoreTeam1[scoreTeam1.length - 1] / scoreTeam1.length).toFixed(2) : 0;
+	const crr2 = scoreTeam2.length ? parseFloat(scoreTeam2[scoreTeam2.length - 1] / scoreTeam2.length).toFixed(2) : 0;
+
+	const projScore1 = Math.round(crr1 * 20);
+	const projScore2 = Math.round(crr2 * 20);
 	
 	const data = {
 		labels: labels,
@@ -69,7 +75,7 @@ const drawChart = (app_data) => {
 				},
 				subtitle: {
 					display: true,
-					text: `${app_data[0].teams} vs ${app_data[1].teams}`
+					text: `${app_data[0].teams} (RR: ${crr1}, PS: ${projScore1}) vs ${app_data[1].teams} (RR: ${crr2}, PS: ${projScore2})`
 				},
 				datalabels: {
 					align: 'top',
