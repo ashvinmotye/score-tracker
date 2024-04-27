@@ -40,24 +40,30 @@ const drawChart = (app_data) => {
 	const scoreTeam1 = app_data.filter(el => el.score1).map(el => Number(el.score1));
 	const scoreTeam2 =  app_data.filter(el => el.score2).map(el => el.score2);
 
-	const crr1 = scoreTeam1.length ? parseFloat(scoreTeam1[scoreTeam1.length - 1] / scoreTeam1.length).toFixed(2) : 0;
-	const crr2 = scoreTeam2.length ? parseFloat(scoreTeam2[scoreTeam2.length - 1] / scoreTeam2.length).toFixed(2) : 0;
+	const team1Score = scoreTeam1[scoreTeam1.length - 1];
+	const team2Score = typeof scoreTeam2[scoreTeam2.length - 1] != 'undefined' ? scoreTeam2[scoreTeam2.length - 1] : 0;
+
+	const crr1 = scoreTeam1.length ? parseFloat(team1Score / scoreTeam1.length).toFixed(2) : 0;
+	const crr2 = scoreTeam2.length ? parseFloat(team2Score / scoreTeam2.length).toFixed(2) : 0;
 
 	const projScore1 = Math.round(crr1 * 20);
 	const projScore2 = Math.round(crr2 * 20);
 
+	const maxScore = Math.max(team1Score, team2Score);
+	const maxYPoint = (Math.ceil((maxScore + 1) / 10) * 10) + 15;
+
 	const arrWickets1 = app_data.filter(el => el.wicket1).map(el => {
-		return {x: Number(el.over), y: 10, z: el.wicket1.length}
+		return {x: Number(el.over), y: maxYPoint, z: el.wicket1.length}
 	});
 	const lostW1 = arrWickets1.reduce((n, {z}) => n + z, 0);
 
 	const arrWickets2 = app_data.filter(el => el.wicket2).map(el => {
-		return {x: Number(el.over), y: 25, z: el.wicket2.length}
+		return {x: Number(el.over), y: maxYPoint + 10, z: el.wicket2.length}
 	});
 	const lostW2 = arrWickets2.reduce((n, {z}) => n + z, 0);
 
-	const _score1 = `${scoreTeam1[scoreTeam1.length - 1]}/${lostW1}`;
-	const _score2 = `${scoreTeam2[scoreTeam2.length - 1]}/${lostW2}`;
+	const _score1 = `${team1Score}/${lostW1}`;
+	const _score2 = `${team2Score}/${lostW2}`;
 	const currentScore1 = scoreTeam1.length == 20 ? `S: ${_score1}` : `S: ${_score1}, PS: ${projScore1}`;
 	const currentScore2 = scoreTeam2.length == 20 ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`;
 	
