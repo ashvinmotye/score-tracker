@@ -10,9 +10,30 @@ canvas#myChart {
 
 .winner {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    font-family: sans-serif;;
+    top: 45px;
+    left: 20px;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.past-matches {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+}
+
+select {
+    font-size: 12px;
+    width: 90px;
+}
+
+label {
+    font-size: 9px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    display: block;
 }
 
 @media screen and (max-width: 600px) {

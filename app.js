@@ -26,6 +26,30 @@ const handleResponse = (csvText) => {
   // sheetObjects is now an Array of Objects
   console.table(sheetObjects);
   drawChart(sheetObjects);
+  setPastMatches(sheetObjects);
+}
+
+const setPastMatches = (app_data) => {
+	const urlParams = new URLSearchParams(window.location.search);
+	const defaultSelected = urlParams.get('m') != null ? urlParams.get('m') : '';
+
+	const pastMatches = app_data.filter(el => el.past_matches).map(el => el.past_matches);
+	const selectEl = document.querySelector('#past-matches');
+	pastMatches.forEach(el => {
+		let opt = document.createElement('option');
+		opt.value = el;
+		opt.innerHTML = el;
+		opt.selected = el == defaultSelected;
+		selectEl.appendChild(opt);
+	});
+
+	selectEl.addEventListener('change', (event) => {
+		if(event.target.value != 'latest') {
+			window.location.href = `${window.location.origin}${window.location.pathname}?m=${event.target.value}`;
+		} else {
+			window.location.href = `${window.location.origin}${window.location.pathname}`;
+		}
+	});
 }
 
 const csvToObjects = (csv) => {
