@@ -139,11 +139,13 @@ const drawChart = (app_data) => {
 		datasets: [{
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[0].teams],
+			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam1,
 		},
 		{
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[1].teams],
+			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam2,
 		},
 		{
@@ -153,6 +155,7 @@ const drawChart = (app_data) => {
 			data: arrWickets1,
 			showLine: false,
 			pointBorderWidth: 16,
+			backgroundColor: TEAMS[app_data[0].teams].borderColor,
 			datalabels: {
 				formatter: (value) => {
 					return `${value.z}W`;
@@ -171,6 +174,7 @@ const drawChart = (app_data) => {
 			data: arrWickets2,
 			showLine: false,
 			pointBorderWidth: 16,
+			backgroundColor: TEAMS[app_data[1].teams].borderColor,
 			datalabels: {
 				formatter: (value) => {
 					return `${value.z}W`;
