@@ -93,6 +93,20 @@ const pluginBackground = {
 	}
   };
 
+const pluginWatermark = {
+	id: 'customWatermark',
+	afterDraw: chart => {
+		let ctx = chart.ctx;
+		ctx.save();
+		ctx.textAlign = 'center';
+		ctx.font = '12px Arial';
+		ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+		ctx.textAlign = 'left';
+		ctx.fillText(`${window.location.origin}/${window.location.pathname.replaceAll('/', '')}`, chart.width - 230, chart.height - 60);
+		ctx.restore();
+	}
+}
+
 const drawChart = (app_data) => {
 	const chartEl = document.getElementById('myChart');
 	const labels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -192,7 +206,10 @@ const drawChart = (app_data) => {
 	new Chart(chartEl, {
 		type: 'line',
 		data: data,
-		plugins: [pluginBackground],
+		plugins: [
+			pluginBackground,
+			pluginWatermark
+		],
 		options: {
 			plugins: {
 				tooltip: {
