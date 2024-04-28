@@ -102,7 +102,7 @@ const pluginWatermark = {
 		ctx.font = '12px Arial';
 		ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
 		ctx.textAlign = 'left';
-		ctx.fillText(`${window.location.origin}/${window.location.pathname.replaceAll('/', '')}`, chart.width - 230, chart.height - 60);
+		ctx.fillText(`${window.location.host}/${window.location.pathname.replaceAll('/', '')}`, chart.width - 230, chart.height - 60);
 		ctx.restore();
 	}
 }
