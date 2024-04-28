@@ -1,12 +1,25 @@
-// sheetID you can find in the URL of your spreadsheet after "spreadsheet/d/"
-const sheetId = "11f3NRKQlu_singbDNBETHa52LPs5_qC9UFKfumeht4k";
-// sheetName is the name of the TAB in your spreadsheet
-const sheetName = encodeURIComponent("Sheet1");
-const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;
+document.addEventListener('DOMContentLoaded', () => {
+	init();
+});
 
-fetch(sheetURL)
-  .then((response) => response.text())
-  .then((csvText) => handleResponse(csvText));
+const init = () => {
+	fetch(getSheetUrl())
+	.then((response) => response.text())
+	.then((csvText) => handleResponse(csvText));
+}
+
+const getSheetUrl = () => {
+	const urlParams = new URLSearchParams(window.location.search);
+
+	// sheetName is the name of the TAB in your spreadsheet
+	const sheetName = urlParams.get('m') != null ? encodeURIComponent(urlParams.get('m')) : encodeURIComponent("Sheet1");
+
+	// sheetID you can find in the URL of your spreadsheet after "spreadsheet/d/"
+	const sheetId = "11f3NRKQlu_singbDNBETHa52LPs5_qC9UFKfumeht4k";
+	const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;
+
+	return sheetURL;
+}
 
 const handleResponse = (csvText) => {
   let sheetObjects = csvToObjects(csvText);
