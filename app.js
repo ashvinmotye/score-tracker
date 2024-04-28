@@ -65,7 +65,7 @@ const drawChart = (app_data) => {
 	const scoreTeam1 = app_data.filter(el => el.score1).map(el => Number(el.score1));
 	const scoreTeam2 =  app_data.filter(el => el.score2).map(el => el.score2);
 
-	const team1Score = scoreTeam1[scoreTeam1.length - 1];
+	const team1Score = typeof scoreTeam1[scoreTeam1.length - 1] != 'undefined' ? scoreTeam1[scoreTeam1.length - 1] : 0;
 	const team2Score = typeof scoreTeam2[scoreTeam2.length - 1] != 'undefined' ? scoreTeam2[scoreTeam2.length - 1] : 0;
 
 	const crr1 = scoreTeam1.length ? parseFloat(team1Score / scoreTeam1.length).toFixed(2) : 0;
