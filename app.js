@@ -13,11 +13,12 @@ const getSheetUrl = () => {
 
 	// sheetName is the name of the TAB in your spreadsheet
 	const sheetName = urlParams.get('m') != null ? encodeURIComponent(urlParams.get('m')) : encodeURIComponent("Sheet1");
+	return generateSheetUrl(sheetName);
+}
 
-	// sheetID you can find in the URL of your spreadsheet after "spreadsheet/d/"
+const generateSheetUrl = (sheetName) => {
 	const sheetId = "11f3NRKQlu_singbDNBETHa52LPs5_qC9UFKfumeht4k";
 	const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;
-
 	return sheetURL;
 }
 
@@ -26,30 +27,39 @@ const handleResponse = (csvText) => {
   // sheetObjects is now an Array of Objects
   console.table(sheetObjects);
   drawChart(sheetObjects);
-  setPastMatches(sheetObjects);
+  setPastMatches();
 }
 
-const setPastMatches = (app_data) => {
+const setPastMatches = () => {
 	const urlParams = new URLSearchParams(window.location.search);
 	const defaultSelected = urlParams.get('m') != null ? urlParams.get('m') : '';
 
-	const pastMatches = app_data.filter(el => el.past_matches).map(el => el.past_matches);
-	const selectEl = document.querySelector('#past-matches');
-	pastMatches.forEach(el => {
-		let opt = document.createElement('option');
-		opt.value = el;
-		opt.innerHTML = el;
-		opt.selected = el == defaultSelected;
-		selectEl.appendChild(opt);
+	fetch(generateSheetUrl('PAST_MATCHES'))
+	.then((response) => response.text())
+	.then((csvText) => {
+		let app_data = csvToObjects(csvText);
+		const pastMatches = app_data.filter(el => el.matches).map(el => el.matches);
+		const selectEl = document.querySelector('#past-matches');
+		pastMatches.forEach(el => {
+			let opt = document.createElement('option');
+			opt.value = el;
+			opt.innerHTML = el;
+			opt.selected = el == defaultSelected;
+			selectEl.appendChild(opt);
+		});
+
+		// Remove Loading... option
+		selectEl.querySelector('option').remove();
+	
+		selectEl.addEventListener('change', (event) => {
+			if(event.target.value != 'latest') {
+				window.location.href = `${window.location.origin}${window.location.pathname}?m=${event.target.value}`;
+			} else {
+				window.location.href = `${window.location.origin}${window.location.pathname}`;
+			}
+		});
 	});
 
-	selectEl.addEventListener('change', (event) => {
-		if(event.target.value != 'latest') {
-			window.location.href = `${window.location.origin}${window.location.pathname}?m=${event.target.value}`;
-		} else {
-			window.location.href = `${window.location.origin}${window.location.pathname}`;
-		}
-	});
 }
 
 const csvToObjects = (csv) => {
