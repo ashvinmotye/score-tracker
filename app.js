@@ -123,7 +123,7 @@ const drawChart = (app_data) => {
 
 	const _score1 = `${team1Score}/${lostW1}`;
 	const _score2 = `${team2Score}/${lostW2}`;
-	const isMatchOver = scoreTeam2.length == 20 || team2Score > team1Score;
+	const isMatchOver = scoreTeam2.length == 20 || team2Score > team1Score || lostW2 == 10;
 	const currentScore1 = scoreTeam1.length == 20 ? `S: ${_score1}` : `S: ${_score1}, PS: ${projScore1}`;
 	const currentScore2 =  isMatchOver ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`;
 
