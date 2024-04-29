@@ -153,13 +153,11 @@ const drawChart = (app_data) => {
 		datasets: [{
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[0].teams],
-			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam1,
 		},
 		{
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[1].teams],
-			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam2,
 		},
 		{
@@ -216,7 +214,11 @@ const drawChart = (app_data) => {
 					enabled: false
 				},
 				legend: {
-					display: true
+					display: true,
+					labels: {
+						boxWidth: 10,
+						boxHeight: 10
+					}
 				},
 				title: {
 					display: true,
