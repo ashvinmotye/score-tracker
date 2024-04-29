@@ -13,7 +13,7 @@ const TEAMS = {
     },
     DC: {
         label: 'Delhi Capitals',
-        borderColor: '#021950'
+        borderColor: '#17479e'
     },
     GT: {
         label: 'Gujarat Titans',
