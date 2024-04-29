@@ -216,7 +216,10 @@ const drawChart = (app_data) => {
 					enabled: false
 				},
 				legend: {
-					display: true
+					display: true,
+					labels: {
+						boxWidth: 12
+					}
 				},
 				title: {
 					display: true,
