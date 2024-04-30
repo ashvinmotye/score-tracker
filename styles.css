@@ -36,6 +36,23 @@ label {
     display: block;
 }
 
+.download {
+    position: absolute;
+    top: 10px;
+    width: 90px;
+}
+
+.download.hide {
+    display: none;
+}
+
+.download button {
+    padding: 2px 5px;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+}
+
 @media screen and (max-width: 600px) {
     .container {
         width: 200vw;

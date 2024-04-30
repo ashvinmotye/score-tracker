@@ -258,4 +258,20 @@ const drawChart = (app_data) => {
 			maintainAspectRatio: false
 		}
 	});
+	initDownloadButton(`${app_data[0].teams}v${app_data[1].teams}`);
+}
+
+const initDownloadButton = (matchName) => {
+	const elButtonParent = document.querySelector('.download');
+	const elButtonEl = document.querySelector('#download');
+
+	elButtonEl.addEventListener('click', () => {
+		let link = document.createElement('a');
+		link.download = `${matchName}.png`;
+		link.href = document.getElementById('myChart').toDataURL("image/jpeg");
+		link.click();
+	});
+
+	elButtonParent.setAttribute('style', `left: ${window.innerWidth - 90}px;`);
+	elButtonParent.classList.remove('hide');
 }
