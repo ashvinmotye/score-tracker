@@ -155,12 +155,59 @@ const drawChart = (app_data) => {
 			...TEAMS[app_data[0].teams],
 			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam1,
+			order: 2,
+			datalabels: {
+				offset: (context) => {
+					let index = context.dataIndex;
+					let value = context.dataset.data[index];
+					let diffScore = Number(scoreTeam2[index]) - value;
+					
+					if(diffScore > 0 && diffScore < 10) {
+						return 4;
+					}
+				},
+				align: (context) => {
+					let index = context.dataIndex;
+					let value = context.dataset.data[index];
+					let diffScore = Number(scoreTeam2[index]) - value;
+					
+					if(diffScore > 0 && diffScore < 10) {
+						return 'bottom';
+					} else {
+						return 'top';
+					}
+				}
+			}
 		},
 		{
 			...CONFIG.DATASETS,
 			...TEAMS[app_data[1].teams],
 			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam2,
+			order: 1,
+			datalabels: {
+				offset: (context) => {
+					let index = context.dataIndex;
+					let value = Number(context.dataset.data[index]);
+					let diffScore = Number(scoreTeam1[index]) - value;
+					
+					if(diffScore >= 0) {
+						return 4;
+					}
+				},
+				align: (context) => {
+					let index = context.dataIndex;
+					let value = Number(context.dataset.data[index]);
+					let diffScore = Number(scoreTeam1[index]) - value;
+					
+					console.log(index, value, Number(scoreTeam1[index]), (Number(scoreTeam1[index]) - value));
+					if(diffScore >= 0) {
+						return 'bottom';
+					} else {
+						return 'top';
+					}
+				}
+			}
 		},
 		{
 			...CONFIG.DATASETS,
@@ -228,10 +275,6 @@ const drawChart = (app_data) => {
 				subtitle: {
 					display: true,
 					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (RR: ${crr2}, ${currentScore2})`
-				},
-				datalabels: {
-					align: 'top',
-					offset: 5
 				},
 				customCanvasBackgroundColor: {
 					color: '#ffffff',
