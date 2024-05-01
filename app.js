@@ -310,7 +310,7 @@ const initDownloadButton = (matchName) => {
 
 	elButtonEl.addEventListener('click', () => {
 		let link = document.createElement('a');
-		link.download = `${matchName}.png`;
+		link.download = `${matchName}`;
 		link.href = document.getElementById('myChart').toDataURL("image/jpeg");
 		link.click();
 	});
