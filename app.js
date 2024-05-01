@@ -333,25 +333,25 @@ const drawChart = (app_data) => {
 	});
 	initDownloadButton(`${app_data[0].teams}v${app_data[1].teams}`);
 
+	const overTeam1 = scoreTeam1.map((el, index, arr) => { return index == 0 ? el : el - arr[index - 1]});
+	const overTeam2 = scoreTeam2.map((el, index, arr) => { return index == 0 ? el : el - arr[index - 1]});
+
 	new Chart(document.querySelector('#myBarChart'), {
-		type: 'bar',
 		data: {
 			labels: labels,
 			datasets: [
 				{
+					type: 'bar',
 					label: TEAMS[app_data[0].teams].label,
-					data: scoreTeam1.map((el, index, arr) => {
-						return index == 0 ? el : el - arr[index - 1]
-					}),
+					data: overTeam1,
 					borderColor: TEAMS[app_data[0].teams].borderColor,
 					backgroundColor: TEAMS[app_data[0].teams].borderColor,
 					borderWidth: 2
 				},
 				{
+					type: 'bar',
 					label: TEAMS[app_data[1].teams].label,
-					data: scoreTeam2.map((el, index, arr) => {
-						return index == 0 ? el : el - arr[index - 1]
-					}),
+					data: overTeam2,
 					borderColor: TEAMS[app_data[1].teams].borderColor,
 					backgroundColor: TEAMS[app_data[1].teams].borderColor,
 					borderWidth: 2
@@ -399,7 +399,7 @@ const drawChart = (app_data) => {
 			},
 			scales: {
 				y: {
-					suggestedMax: 25,
+					grace: '10%',
 					title: {
 						display: true,
 						text: 'RUNS'
