@@ -107,6 +107,22 @@ const pluginWatermark = {
 	}
 }
 
+const pluginWinningTeam = {
+	id: 'winningTeam',
+	afterDraw: (chart, args, options) => {
+		if(options.text) {
+			let ctx = chart.ctx;
+			ctx.save();
+			ctx.textAlign = 'center';
+			ctx.font = 'bold 12px sans-serif';
+			ctx.fillStyle = options.color;
+			ctx.textAlign = 'left';
+			ctx.fillText(`${options.text} WINS!`, 20, 52);
+			ctx.restore();
+		}
+	}
+}
+
 const drawChart = (app_data) => {
 	const chartEl = document.getElementById('myChart');
 	const labels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -141,11 +157,9 @@ const drawChart = (app_data) => {
 	const currentScore1 = scoreTeam1.length == 20 ? `S: ${_score1}` : `S: ${_score1}, PS: ${projScore1}`;
 	const currentScore2 =  isMatchOver ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`;
 
+	let winnerKey = '';
 	if(isMatchOver) {
-		const winnerEl = document.querySelector('.winner');
-		const winnerKey = team2Score > team1Score ? app_data[1].teams : app_data[0].teams;
-		winnerEl.textContent = `${winnerKey} wins!`;
-		winnerEl.setAttribute('style', `color: ${TEAMS[winnerKey].borderColor}`);
+		winnerKey = team2Score > team1Score ? app_data[1].teams : app_data[0].teams;
 	}
 	
 	const data = {
@@ -255,7 +269,8 @@ const drawChart = (app_data) => {
 		data: data,
 		plugins: [
 			pluginBackground,
-			pluginWatermark
+			pluginWatermark,
+			pluginWinningTeam
 		],
 		options: {
 			plugins: {
@@ -278,6 +293,10 @@ const drawChart = (app_data) => {
 				},
 				customCanvasBackgroundColor: {
 					color: '#ffffff',
+				},
+				winningTeam: {
+					color: winnerKey ? `${TEAMS[winnerKey].borderColor}` : '',
+					text: winnerKey
 				}
 			},
 			hover: {

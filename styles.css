@@ -8,16 +8,6 @@ canvas#myChart {
     height: 100vh !important;
 }
 
-.winner {
-    position: absolute;
-    top: 45px;
-    left: 20px;
-    font-family: sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 .past-matches {
     position: absolute;
     left: 20px;
