@@ -169,7 +169,7 @@ const drawChart = (app_data) => {
 			...TEAMS[app_data[0].teams],
 			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam1,
-			order: 2,
+			order: 4,
 			datalabels: {
 				offset: (context) => {
 					let index = context.dataIndex;
@@ -198,7 +198,7 @@ const drawChart = (app_data) => {
 			...TEAMS[app_data[1].teams],
 			backgroundColor: 'rgba(0, 0, 0, 0)',
 			data: scoreTeam2,
-			order: 1,
+			order: 3,
 			datalabels: {
 				offset: (context) => {
 					let index = context.dataIndex;
@@ -228,6 +228,7 @@ const drawChart = (app_data) => {
 			...TEAMS[app_data[0].teams],
 			label: `${app_data[0].teams} wickets`,
 			data: arrWickets1,
+			order: 2,
 			showLine: false,
 			pointBorderWidth: 16,
 			backgroundColor: TEAMS[app_data[0].teams].borderColor,
@@ -247,6 +248,7 @@ const drawChart = (app_data) => {
 			...TEAMS[app_data[1].teams],
 			label: `${app_data[1].teams} wickets`,
 			data: arrWickets2,
+			order: 1,
 			showLine: false,
 			pointBorderWidth: 16,
 			backgroundColor: TEAMS[app_data[1].teams].borderColor,
@@ -279,6 +281,7 @@ const drawChart = (app_data) => {
 				},
 				legend: {
 					display: true,
+					reverse: true,
 					labels: {
 						boxWidth: 12
 					}
