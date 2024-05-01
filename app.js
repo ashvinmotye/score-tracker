@@ -417,16 +417,19 @@ const drawChart = (app_data) => {
 }
 
 const initDownloadButton = (matchName) => {
-	const elButtonParent = document.querySelector('.download');
-	const elButtonEl = document.querySelector('#download');
-
-	elButtonEl.addEventListener('click', () => {
-		let link = document.createElement('a');
-		link.download = `${matchName}`;
-		link.href = document.getElementById('myChart').toDataURL("image/jpeg");
-		link.click();
+	document.querySelectorAll('.download-btn').forEach(button => {
+		button.addEventListener('click', (event) => {
+			let chartName = event.target.dataset.chart;
+			let fileEnd = chartName == 'myChart' ? 'score' : 'over';
+			let link = document.createElement('a');
+			link.download = `${matchName}-${fileEnd}`;
+			link.href = document.getElementById(chartName).toDataURL("image/jpeg");
+			link.click();
+		});
 	});
 
-	elButtonParent.setAttribute('style', `left: ${window.innerWidth - 90}px;`);
-	elButtonParent.classList.remove('hide');
+	document.querySelectorAll('.download').forEach(elButtonParent => {
+		elButtonParent.setAttribute('style', `left: ${window.innerWidth - 90}px;`);
+		elButtonParent.classList.remove('hide');
+	});
 }

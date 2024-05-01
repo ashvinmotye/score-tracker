@@ -43,6 +43,10 @@ label {
     letter-spacing: 0.2px;
 }
 
+.chart-container {
+    position: relative;
+}
+
 @media screen and (max-width: 600px) {
     .container {
         width: 200vw;

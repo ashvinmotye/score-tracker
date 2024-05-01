@@ -37,13 +37,16 @@
                 <option value="latest">Latest</option>
             </select>
         </div>
-        <div class="download hide">
-            <button id="download">Download</button>
-        </div>
         <div class="chart-container">
+            <div class="download hide">
+                <button class="download-btn" id="download" data-chart="myChart">Download</button>
+            </div>
             <canvas id="myChart"></canvas>
         </div>
         <div class="chart-container">
+            <div class="download">
+                <button class="download-btn" id="download-bar" data-chart="myBarChart">Download</button>
+            </div>
             <canvas id="myBarChart"></canvas>
         </div>
     </div>
