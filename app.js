@@ -332,6 +332,88 @@ const drawChart = (app_data) => {
 		}
 	});
 	initDownloadButton(`${app_data[0].teams}v${app_data[1].teams}`);
+
+	new Chart(document.querySelector('#myBarChart'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [
+				{
+					label: TEAMS[app_data[0].teams].label,
+					data: scoreTeam1.map((el, index, arr) => {
+						return index == 0 ? el : el - arr[index - 1]
+					}),
+					borderColor: TEAMS[app_data[0].teams].borderColor,
+					backgroundColor: TEAMS[app_data[0].teams].borderColor,
+					borderWidth: 2
+				},
+				{
+					label: TEAMS[app_data[1].teams].label,
+					data: scoreTeam2.map((el, index, arr) => {
+						return index == 0 ? el : el - arr[index - 1]
+					}),
+					borderColor: TEAMS[app_data[1].teams].borderColor,
+					backgroundColor: TEAMS[app_data[1].teams].borderColor,
+					borderWidth: 2
+				}
+			]
+		},
+		plugins: [
+			pluginBackground,
+			pluginWatermark,
+			pluginWinningTeam
+		],
+		options: {
+			responsive: true,
+			plugins: {
+				legend: {
+					display: true,
+					labels: {
+						boxWidth: 12
+					}
+				},
+				title: {
+					display: true,
+					text: 'IPL Score'
+				},
+				subtitle: {
+					display: true,
+					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (RR: ${crr2}, ${currentScore2})`
+				},
+				tooltip: {
+					enabled: false
+				},
+				customCanvasBackgroundColor: {
+					color: '#ffffff',
+				},
+				winningTeam: {
+					color: winnerKey ? `${TEAMS[winnerKey].borderColor}` : '',
+					text: winnerKey
+				},
+				datalabels: {
+					color: '#fff'
+				}
+			},
+			hover: {
+				mode: null
+			},
+			scales: {
+				y: {
+					suggestedMax: 25,
+					title: {
+						display: true,
+						text: 'RUNS'
+					}
+				},
+				x: {
+					title: {
+						display: true,
+						text: 'OVER'
+					}
+				}
+			},
+		},
+	})
 }
 
 const initDownloadButton = (matchName) => {
