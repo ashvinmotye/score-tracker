@@ -127,6 +127,7 @@ const pluginWickets = {
 	id: 'barWickets',
 	afterDatasetsDraw: (chart) => {
 		const { ctx, data } = chart;
+		const labelOffsetDistance = Math.ceil(0.02 * chart.height);
 
 		ctx.save();
 		for(let i = 0; i < data.datasets.length; i++) {
@@ -134,18 +135,18 @@ const pluginWickets = {
 				if(data.datasets[i].barWickets[index] != 0) {
 					// Circle
 					ctx.beginPath();
-					ctx.arc(datapoint.x, datapoint.y - 16, datapoint.width / 2, 0, 2 * Math.PI);
+					ctx.arc(datapoint.x, datapoint.y - labelOffsetDistance, datapoint.width / 2, 0, 2 * Math.PI);
 					ctx.fillStyle = data.datasets[i].borderColor;
 					ctx.fill();
 
 					// Wickets
-					ctx.font = '10px sans-serif';
+					ctx.font = `${window.outerWidth < 600 ? 6 : 10}px sans-serif`;
 					ctx.fillStyle = '#fff';
 					ctx.textAlign = 'center';
 					ctx.fillText(
 						`${data.datasets[i].barWickets[index]}W`,
 						datapoint.x,
-						datapoint.y - 16
+						datapoint.y - labelOffsetDistance
 					);
 				}
 			});
@@ -375,7 +376,7 @@ const drawChart = (app_data) => {
 					data: overTeam1,
 					borderColor: TEAMS[app_data[0].teams].borderColor,
 					backgroundColor: TEAMS[app_data[0].teams].borderColor,
-					borderWidth: 2,
+					borderWidth: 0,
 					barWickets: app_data.map(el => { return el.wicket1.length ? el.wicket1.length : 0;})
 				},
 				{
@@ -384,7 +385,7 @@ const drawChart = (app_data) => {
 					data: overTeam2,
 					borderColor: TEAMS[app_data[1].teams].borderColor,
 					backgroundColor: TEAMS[app_data[1].teams].borderColor,
-					borderWidth: 2,
+					borderWidth: 0,
 					barWickets: app_data.map(el => { return el.wicket2.length ? el.wicket2.length : 0;})
 				}
 			]
@@ -423,7 +424,10 @@ const drawChart = (app_data) => {
 					text: winnerKey
 				},
 				datalabels: {
-					color: '#fff'
+					color: '#fff',
+					font: {
+						size: window.outerWidth < 600 ? 8 : 12
+					}
 				}
 			},
 			hover: {
