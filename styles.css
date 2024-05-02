@@ -50,6 +50,6 @@ label {
 
 @media screen and (max-width: 600px) {
     .container {
-        width: 200vw;
+        width: 250vw;
     }
 }
