@@ -6,6 +6,14 @@ const init = () => {
 	fetch(getSheetUrl())
 	.then((response) => response.text())
 	.then((csvText) => handleResponse(csvText));
+
+	initDisclaimer();
+}
+
+const initDisclaimer = () => {
+	document.querySelector('#close').addEventListener('click', () => {
+		document.querySelector('.disclaimer').classList.add('hide');
+	});
 }
 
 const getSheetUrl = () => {

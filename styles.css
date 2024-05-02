@@ -48,6 +48,44 @@ label {
     position: relative;
 }
 
+.disclaimer {
+    position: fixed;
+    z-index: 10;
+    top: 30px;
+    left: 15px;
+    width: 300px;
+    max-width: calc(100vw - 30px);
+    padding: 15px 20px;
+    background: #141414;
+    border: 2px solid #fafafa;
+}
+
+.disclaimer.hide {
+    display: none;
+}
+
+.disclaimer p {
+    font-size: 12px;
+    color: #fafafa;
+    font-family: sans-serif;
+}
+
+.disclaimer button {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    border-radius: 20px;
+    background: #141414;
+    border: 2px solid #fafafa;
+    color: #fafafa;
+}
+
 @media screen and (max-width: 600px) {
     .container {
         width: 250vw;
