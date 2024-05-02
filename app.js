@@ -133,21 +133,23 @@ const pluginWickets = {
 		for(let i = 0; i < data.datasets.length; i++) {
 			chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
 				if(data.datasets[i].barWickets[index] != 0) {
-					// Circle
-					ctx.beginPath();
-					ctx.arc(datapoint.x, datapoint.y - labelOffsetDistance, datapoint.width / 2, 0, 2 * Math.PI);
-					ctx.fillStyle = data.datasets[i].borderColor;
-					ctx.fill();
+					for(let j = 0; j < data.datasets[i].barWickets[index]; j++) {
+						// Circle
+						ctx.beginPath();
+						ctx.arc(datapoint.x, (datapoint.y - labelOffsetDistance) + (-1.2 * j * datapoint.width), datapoint.width / 2, 0, 2 * Math.PI);
+						ctx.fillStyle = data.datasets[i].borderColor;
+						ctx.fill();
 
-					// Wickets
-					ctx.font = `${window.outerWidth < 600 ? 6 : 10}px sans-serif`;
-					ctx.fillStyle = '#fff';
-					ctx.textAlign = 'center';
-					ctx.fillText(
-						`${data.datasets[i].barWickets[index]}W`,
-						datapoint.x,
-						datapoint.y - labelOffsetDistance
-					);
+						// Wickets
+						ctx.font = `${window.outerWidth < 600 ? 6 : 10}px sans-serif`;
+						ctx.fillStyle = '#fff';
+						ctx.textAlign = 'center';
+						ctx.fillText(
+							'W',
+							datapoint.x,
+							(datapoint.y - labelOffsetDistance) + (-1.2 * j * datapoint.width)
+						);
+					}
 				}
 			});
 		}
