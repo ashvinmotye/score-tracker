@@ -318,6 +318,9 @@ const drawChart = (app_data) => {
 					reverse: true,
 					labels: {
 						boxWidth: 12
+					},
+					onClick: event => {
+						event.stopProgation()
 					}
 				},
 				title: {
@@ -407,6 +410,9 @@ const drawChart = (app_data) => {
 					display: true,
 					labels: {
 						boxWidth: 12
+					},
+					onClick: event => {
+						event.stopProgation()
 					}
 				},
 				title: {
