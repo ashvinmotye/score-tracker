@@ -123,6 +123,36 @@ const pluginWinningTeam = {
 	}
 }
 
+const pluginWickets = {
+	id: 'barWickets',
+	afterDatasetsDraw: (chart) => {
+		const { ctx, data } = chart;
+
+		ctx.save();
+		for(let i = 0; i < data.datasets.length; i++) {
+			chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
+				if(data.datasets[i].barWickets[index] != 0) {
+					// Circle
+					ctx.beginPath();
+					ctx.arc(datapoint.x, datapoint.y - 16, datapoint.width / 2, 0, 2 * Math.PI);
+					ctx.fillStyle = data.datasets[i].borderColor;
+					ctx.fill();
+
+					// Wickets
+					ctx.font = '10px sans-serif';
+					ctx.fillStyle = '#fff';
+					ctx.textAlign = 'center';
+					ctx.fillText(
+						`${data.datasets[i].barWickets[index]}W`,
+						datapoint.x,
+						datapoint.y - 16
+					);
+				}
+			});
+		}
+	}
+}
+
 const drawChart = (app_data) => {
 	const chartEl = document.getElementById('myChart');
 	const labels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -214,7 +244,6 @@ const drawChart = (app_data) => {
 					let value = Number(context.dataset.data[index]);
 					let diffScore = Number(scoreTeam1[index]) - value;
 					
-					console.log(index, value, Number(scoreTeam1[index]), (Number(scoreTeam1[index]) - value));
 					if(diffScore >= 0) {
 						return 'bottom';
 					} else {
@@ -346,7 +375,8 @@ const drawChart = (app_data) => {
 					data: overTeam1,
 					borderColor: TEAMS[app_data[0].teams].borderColor,
 					backgroundColor: TEAMS[app_data[0].teams].borderColor,
-					borderWidth: 2
+					borderWidth: 2,
+					barWickets: app_data.map(el => { return el.wicket1.length ? el.wicket1.length : 0;})
 				},
 				{
 					type: 'bar',
@@ -354,14 +384,16 @@ const drawChart = (app_data) => {
 					data: overTeam2,
 					borderColor: TEAMS[app_data[1].teams].borderColor,
 					backgroundColor: TEAMS[app_data[1].teams].borderColor,
-					borderWidth: 2
+					borderWidth: 2,
+					barWickets: app_data.map(el => { return el.wicket2.length ? el.wicket2.length : 0;})
 				}
 			]
 		},
 		plugins: [
 			pluginBackground,
 			pluginWatermark,
-			pluginWinningTeam
+			pluginWinningTeam,
+			pluginWickets
 		],
 		options: {
 			responsive: true,
