@@ -193,6 +193,8 @@ const drawChart = (app_data) => {
 		winnerKey = team2Score > team1Score ? app_data[1].teams : app_data[0].teams;
 	}
 	
+	const COMPTETITION = app_data.filter(el => el.competition.length).length ? app_data.filter(el => el.competition.length)[0].competition : '';
+
 	const data = {
 		labels: labels,
 		datasets: [{
@@ -318,7 +320,7 @@ const drawChart = (app_data) => {
 				},
 				title: {
 					display: true,
-					text: 'IPL Score'
+					text: `${COMPTETITION.length ? COMPTETITION + ' ' : ''}Score`
 				},
 				subtitle: {
 					display: true,
@@ -407,7 +409,7 @@ const drawChart = (app_data) => {
 				},
 				title: {
 					display: true,
-					text: 'IPL Score'
+					text: `${COMPTETITION.length ? COMPTETITION + ' ' : ''}Score`
 				},
 				subtitle: {
 					display: true,
@@ -449,7 +451,6 @@ const drawChart = (app_data) => {
 					grid: {
 						color: (context) => {
 							if(context.tick) {
-								console.log(context.tick)
 								return [7, 17].includes(context.tick.label) ? '#dddddd' : '#e5e5e5';
 							}
 							return '#e5e5e5';
