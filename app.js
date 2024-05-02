@@ -445,6 +445,21 @@ const drawChart = (app_data) => {
 					title: {
 						display: true,
 						text: 'OVER'
+					},
+					grid: {
+						color: (context) => {
+							if(context.tick) {
+								console.log(context.tick)
+								return [7, 17].includes(context.tick.label) ? '#dddddd' : '#e5e5e5';
+							}
+							return '#e5e5e5';
+						},
+						lineWidth: (context) => {
+							if(context.tick) {
+								return [7, 17].includes(context.tick.label) ? 3 : 1;
+							}
+							return 1;
+						}
 					}
 				}
 			},
