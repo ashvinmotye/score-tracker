@@ -86,6 +86,29 @@ label {
     color: #fafafa;
 }
 
+a.tweet {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 180px;
+    font-size: 12px;
+    padding: 6px 10px;
+    height: 34px;
+    background-color: #000;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-family: sans-serif;
+    letter-spacing: 0.2px;
+}
+
 @media screen and (max-width: 600px) {
     .container {
         width: 250vw;

@@ -161,7 +161,7 @@ const pluginWinningTeam = {
 			ctx.font = 'bold 12px sans-serif';
 			ctx.fillStyle = options.color;
 			ctx.textAlign = 'left';
-			ctx.fillText(`${options.text} WINS!`, 20, 52);
+			ctx.fillText(`${options.text}!`, 20, 52);
 			ctx.restore();
 		}
 	}
@@ -380,7 +380,7 @@ const drawChart = (app_data) => {
 				},
 				winningTeam: {
 					color: winnerKey ? `${TEAMS[winnerKey].borderColor}` : '',
-					text: winnerKey
+					text: `${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}`
 				}
 			},
 			hover: {
@@ -475,7 +475,7 @@ const drawChart = (app_data) => {
 				},
 				winningTeam: {
 					color: winnerKey ? `${TEAMS[winnerKey].borderColor}` : '',
-					text: winnerKey
+					text: `${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}`
 				},
 				datalabels: {
 					color: '#fff',
@@ -518,6 +518,38 @@ const drawChart = (app_data) => {
 			},
 		},
 	})
+
+	// Tweet Generator
+	const urlParams = new URLSearchParams(window.location.search);
+	const adminMode = urlParams.get('admin') != null;
+
+	if(adminMode) {
+		let tweet = `Score comparison after over ${scoreTeam2.length}
+${app_data[0].teams} ${scoreTeam1[scoreTeam2.length - 1]}/${app_data.slice(0, scoreTeam2.length).filter(el => el.wicket1).map(el => el.wicket1).join('').length}
+${app_data[1].teams} ${scoreTeam2[scoreTeam2.length - 1]}/${app_data.slice(0, scoreTeam2.length).filter(el => el.wicket2).map(el => el.wicket2).join('').length}
+
+${
+	isMatchOver ?
+	`Match over!
+${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}`
+	:
+	`${app_data[1].teams} needs ${team1Score - team2Score} runs needed off ${(20 - scoreTeam2.length) * 6} balls, ${20 - scoreTeam2.length} overs remaining`
+}
+
+${app_data[0].teams} set a total of ${_score1} in first inning`;
+
+		let url = 'https://ashvinmotye.github.io/score-tracker/';
+		let baseUrl = 'https://twitter.com/intent/tweet?';
+		let hashtags = app_data.filter(el => el.hashtags).map(el => el.hashtags).join();
+		let tweetUrl = `${baseUrl}text=${encodeURI(tweet)}&hashtags=${hashtags}&url=${encodeURI(url)}&original_referer=${encodeURI(url)}`;
+		
+		let elTweetLink = document.createElement('a');
+		elTweetLink.textContent = 'Tweet';
+		elTweetLink.setAttribute('target', '_blank');
+		elTweetLink.setAttribute('href', tweetUrl);
+		elTweetLink.setAttribute('class', 'tweet');
+		document.querySelector('body').appendChild(elTweetLink);
+	}
 }
 
 const initDownloadButton = (matchName) => {
