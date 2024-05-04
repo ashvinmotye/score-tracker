@@ -380,7 +380,7 @@ const drawChart = (app_data) => {
 				},
 				winningTeam: {
 					color: winnerKey ? `${TEAMS[winnerKey].borderColor}` : '',
-					text: `${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}`
+					text: winnerKey ? `${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}` : ''
 				}
 			},
 			hover: {
@@ -475,7 +475,7 @@ const drawChart = (app_data) => {
 				},
 				winningTeam: {
 					color: winnerKey ? `${TEAMS[winnerKey].borderColor}` : '',
-					text: `${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}`
+					text: winnerKey ? `${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}` : ''
 				},
 				datalabels: {
 					color: '#fff',
