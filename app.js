@@ -374,7 +374,7 @@ const drawChart = (app_data) => {
 				},
 				subtitle: {
 					display: true,
-					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (${yetToBat ? '' : 'RR: ${crr2}, '}${currentScore2})`
+					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (${yetToBat ? '' : `RR: ${crr2}, `}${currentScore2})`
 				},
 				customCanvasBackgroundColor: {
 					color: '#ffffff',
@@ -466,7 +466,7 @@ const drawChart = (app_data) => {
 				},
 				subtitle: {
 					display: true,
-					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (${yetToBat ? '' : 'RR: ${crr2}, '}${currentScore2})`
+					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (${yetToBat ? '' : `RR: ${crr2}, `}${currentScore2})`
 				},
 				tooltip: {
 					enabled: false
