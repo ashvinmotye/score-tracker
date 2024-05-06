@@ -232,7 +232,8 @@ const drawChart = (app_data) => {
 	const _score2 = `${team2Score}/${lostW2}`;
 	const isMatchOver = scoreTeam2.length == 20 || team2Score > team1Score || lostW2 == 10;
 	const currentScore1 = scoreTeam1.length == 20 ? `S: ${_score1}` : `S: ${_score1}, PS: ${projScore1}`;
-	const currentScore2 =  scoreTeam2.length == 0 ? `yet to bat` : (isMatchOver ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`);
+	const yetToBat = scoreTeam2.length == 0;
+	const currentScore2 = yetToBat ? `yet to bat` : (isMatchOver ? `S: ${_score2}` : `S: ${_score2}, PS: ${projScore2}`);
 
 	let winnerKey = '';
 	if(isMatchOver) {
@@ -373,7 +374,7 @@ const drawChart = (app_data) => {
 				},
 				subtitle: {
 					display: true,
-					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (RR: ${crr2}, ${currentScore2})`
+					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (${yetToBat ? '' : 'RR: ${crr2}, '}${currentScore2})`
 				},
 				customCanvasBackgroundColor: {
 					color: '#ffffff',
@@ -465,7 +466,7 @@ const drawChart = (app_data) => {
 				},
 				subtitle: {
 					display: true,
-					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (RR: ${crr2}, ${currentScore2})`
+					text: `${app_data[0].teams} (RR: ${crr1}, ${currentScore1}) vs ${app_data[1].teams} (${yetToBat ? '' : 'RR: ${crr2}, '}${currentScore2})`
 				},
 				tooltip: {
 					enabled: false
