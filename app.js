@@ -534,7 +534,7 @@ ${
 	`Match over!
 ${winnerKey} wins by ${team1Score > team2Score ? `${team1Score - team2Score} runs` : `${10 - lostW2} wickets`}`
 	:
-	`${app_data[1].teams} needs ${team1Score - team2Score} runs needed off ${(20 - scoreTeam2.length) * 6} balls, ${20 - scoreTeam2.length} overs remaining`
+	`${app_data[1].teams} needs ${team1Score - team2Score + 1} runs needed off ${(20 - scoreTeam2.length) * 6} balls, ${20 - scoreTeam2.length} overs remaining`
 }
 
 ${app_data[0].teams} set a total of ${_score1} in first inning`;
